@@ -65,6 +65,7 @@ export default function AttentionDot({
   return (
     <span
       {...rest}
+      data-slot="attention-dot"
       className={`inline-block shrink-0 rounded-full border border-black ${SIZE_CLASS[size]} ${tone} ${className ?? ""}`}
     />
   );

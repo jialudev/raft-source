@@ -1,0 +1,180 @@
+/* Temporary, dark-only compatibility skin for the v1.13 source snapshot.
+   raft-ui owns the semantic dark theme; this file bridges legacy Web classes.
+   Keep this isolated so an upstream dark-mode release can replace it cleanly. */
+:root[data-theme="elegant"].dark {
+  --night-canvas: #191c23;
+  --night-sidebar: #15181e;
+  --night-raised: #232832;
+  --night-line: #3b4453;
+  --night-text: #e6e9ef;
+  --night-muted: #abb7c9;
+  --night-accent: #cfb878;
+
+  /* Legacy text-black/opacity and hover:bg-black/opacity now use light ink.
+     Opaque inverse surfaces are corrected below, without filtering media. */
+  --color-black: var(--night-text);
+  --color-white: var(--night-canvas);
+  --color-brutal-black: var(--night-text);
+  --color-brutal-cream: var(--night-sidebar);
+  --color-brutal-yellow: var(--night-accent);
+  --color-soft-signal: var(--night-accent);
+  --color-workspace-mode-active: #51462e;
+  --color-brutal-pink: #df9bb8;
+  --color-brutal-lavender: #b6a7de;
+  --color-brutal-cyan: #85c6dc;
+  --color-brutal-orange: #dca477;
+  --color-brutal-lime: #a9c887;
+  --color-brutal-red: #ed958b;
+  --color-brutal-stone: #a9aeb8;
+  --color-code-surface: #12151b;
+  --color-code-foreground: #e6e9ef;
+
+  --color-gray-50: #20242c;
+  --color-gray-100: #272d37;
+  --color-gray-200: #343c49;
+  --color-gray-300: #465163;
+  --color-gray-400: #8792a4;
+  --color-gray-500: #a3adbc;
+  --color-gray-600: #b6bfce;
+  --color-gray-700: #cad2df;
+  --color-gray-800: #dde3ed;
+  --color-gray-900: #e6e9ef;
+
+  --foreground: var(--night-text);
+  --foreground-strong: #f1f3f7;
+  --foreground-muted: var(--night-muted);
+  --foreground-hint: #a0aabd;
+  --foreground-icon: #b7c1d1;
+  --foreground-placeholder: #a0aabd;
+  --layer-canvas: var(--night-canvas);
+  --layer-canvas-muted: var(--night-sidebar);
+  --layer-panel: #20242d;
+  --layer-popover: var(--night-raised);
+  --layer-inset: #12151b;
+  --layer-card: #20242d;
+  --fill-muted: #2b323e;
+  --fill-strong: #353e4b;
+  --line: var(--night-line);
+  --line-strong: #66758b;
+
+  --shadow-brutal: 0 3px 10px rgb(0 0 0 / 30%);
+  --shadow-brutal-sm: 0 2px 5px rgb(0 0 0 / 25%);
+  --shadow-brutal-lg: 0 8px 24px rgb(0 0 0 / 45%);
+  --shadow-brutal-hover: 0 3px 10px rgb(0 0 0 / 35%);
+  --shadow-brutal-active: 0 1px 3px rgb(0 0 0 / 25%);
+  --shadow-soft-popover: 0 8px 24px rgb(0 0 0 / 40%);
+  --shadow-overflow-cue-left: inset 8px 0 8px -4px var(--night-canvas);
+  --shadow-overflow-cue-right: inset -8px 0 8px -4px var(--night-canvas);
+}
+
+/* Unlayered compatibility rules override the snapshot's generated utilities.
+   Keep text/accent tokens bright while tinting their solid backgrounds. */
+.bg-black, .hover\:bg-black:hover,
+.group:hover .group-hover\:bg-black { background-color: #101217; }
+.text-white, .hover\:text-white:hover { color: #f1f3f7; }
+.border-black, .hover\:border-black:hover,
+.active\:border-black:active, .focus-visible\:border-black:focus-visible {
+  border-color: var(--night-line);
+}
+.divide-black > :not(:last-child) { border-color: var(--night-line); }
+.bg-soft-signal, .hover\:bg-soft-signal:hover,
+.bg-brutal-yellow { background-color: #403b2b; }
+.peer:focus-visible ~ .peer-focus-visible\:bg-soft-signal { background-color: #403b2b; }
+.bg-brutal-pink, .hover\:bg-brutal-pink:hover { background-color: #49323f; }
+.bg-brutal-lavender, .hover\:bg-brutal-lavender:hover { background-color: #3e354f; }
+.bg-brutal-cyan { background-color: #293f4a; }
+.bg-brutal-orange { background-color: #4a382b; }
+.bg-brutal-lime { background-color: #35412e; }
+.bg-brutal-red { background-color: #4c3032; }
+.bg-brutal-stone { background-color: #353940; }
+.text-white\/45 { color: #9aa5b6; }
+.text-black\/30, .text-black\/35, .text-black\/40,
+.text-black\/45, .text-black\/50 { color: #9aa5b6; }
+@media (min-width: 640px) { .sm\:border-black { border-color: var(--night-line); } }
+@media (min-width: 768px) { .md\:border-black { border-color: var(--night-line); } }
+@media (min-width: 1024px) { .lg\:border-black { border-color: var(--night-line); } }
+
+html, body, #root {
+  background-color: var(--night-canvas, #191c23);
+  color: var(--night-text, #e6e9ef);
+}
+
+/* The snapshot's elegant compatibility rules still force light-theme ink. */
+:root[data-theme="elegant"].dark :is(.btn-brutal, .btn-brutal-sm, .btn-brutal-high, .card-brutal, .input-brutal) {
+  border-color: var(--night-line);
+  box-shadow: var(--shadow-brutal-sm);
+}
+:root[data-theme="elegant"].dark :is(.btn-brutal.text-black, .btn-brutal-sm.text-black, .btn-brutal-high.text-black, .card-brutal.text-black, .input-brutal) {
+  color: var(--night-text);
+}
+:root[data-theme="elegant"].dark .card-register-muted {
+  color: var(--night-muted);
+}
+:root[data-theme="elegant"].dark .check-marker-brutal.bg-black {
+  background-color: #101217;
+  border-color: #66758b;
+}
+
+*:focus-visible {
+  outline-color: var(--night-accent);
+}
+input:not([type="checkbox"]):focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--night-accent);
+  outline-offset: 2px;
+}
+:root[data-theme="elegant"].dark .input-brutal:focus {
+  border-color: var(--night-accent);
+  box-shadow: 0 0 0 2px rgb(207 184 120 / 18%);
+}
+::selection {
+  background-color: #4b5368;
+  color: #f1f3f7;
+}
+
+.image-gallery-bg { background: var(--night-canvas); }
+.image-transparency-bg { background-color: var(--night-raised); }
+.mobile-server-selector-vector-face { fill: #101217; }
+.mobile-server-selector-vector-shadow { fill: #090b0f; }
+.thread-side-column { border-color: var(--night-line); }
+.r-mermaid-diagram, .r-mermaid-toolbar, .r-mermaid-source__code,
+.r-mermaid-fullscreen__panel, .r-mermaid-diagram__alert { border-color: var(--night-line); }
+.r-mermaid-diagram__loading, .r-mermaid-render-error { color: var(--night-muted); }
+
+/* Preserve a dark scrim despite legacy bg-black/opacity now being light ink. */
+[data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"],
+[data-slot="drawer-overlay"], .r-mermaid-fullscreen__backdrop,
+[class~="bg-black/40"], [class~="bg-black/60"], [class~="bg-black/75"] {
+  background-color: rgb(0 0 0 / 70%);
+}
+
+/* A few older search/graph surfaces bypass the shared color tokens. */
+[class~="bg-[#fff4bf]"] { background-color: #403b2b; }
+[class~="bg-[#ffeefb]"] { background-color: #49323f; }
+[class~="bg-[#f8f8f0]"] { background-color: var(--night-canvas); }
+[class~="bg-[#f8f8f0]"] svg rect[fill="#f8f8f0"] { fill: var(--night-canvas); }
+[class~="bg-[#f8f8f0]"] svg path[stroke="#111"] { stroke: var(--night-muted); }
+.workspace-grid-demo-shell {
+  --workspace-grid-paper: var(--night-canvas);
+  --workspace-grid-ink: var(--night-text);
+  --workspace-grid-active: #403b2b;
+}
+
+/* Presence and unread dots carry meaning, so keep their signal colors bright. */
+:is([data-slot="status-dot"], [data-slot="attention-dot"]).bg-brutal-lime { background-color: var(--color-brutal-lime); }
+:is([data-slot="status-dot"], [data-slot="attention-dot"]).bg-brutal-red { background-color: var(--color-brutal-red); }
+:is([data-slot="status-dot"], [data-slot="attention-dot"]).bg-brutal-orange { background-color: var(--color-brutal-orange); }
+:is([data-slot="status-dot"], [data-slot="attention-dot"]).bg-brutal-pink { background-color: var(--color-brutal-pink); }
+:is([data-slot="status-dot"], [data-slot="attention-dot"]).bg-brutal-cyan { background-color: var(--color-brutal-cyan); }
+.mx-auto[src="/brand/raft-icon.svg"] {
+  background-color: var(--night-accent);
+  border-radius: 8px;
+  padding: 5px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scrollbar-quiet { scrollbar-color: #485365 transparent; }
+  .scrollbar-quiet:hover { scrollbar-color: #66758b transparent; }
+  .scrollbar-quiet::-webkit-scrollbar-thumb { background-color: #485365; }
+  .scrollbar-quiet:hover::-webkit-scrollbar-thumb,
+  .scrollbar-quiet::-webkit-scrollbar-thumb:hover { background-color: #66758b; }
+}

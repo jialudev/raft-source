@@ -93,8 +93,7 @@ import { WIKI_FEATURE_FLAG_KEY } from "@botiverse/raft-shared";
 import { useServerFeatureFlag } from "../../store/serverFeatureFlags";
 import { buildSidebarDisclosureRestoreState } from "./sidebarChannelFocus";
 
-const THEME_CHROME_YELLOW = "#FFD440";
-const THEME_CHROME_WHITE = "#FFFFFF";
+const THEME_CHROME_DARK = "#191c23";
 const MOBILE_TAB_BAR_SAFE_BOTTOM = "min(env(safe-area-inset-bottom, 0px), 34px)";
 
 function useWorkspaceSidebarResize({
@@ -2026,7 +2025,7 @@ export default function MainLayout() {
     ? workspaceSidebars.left.collapsed || workspaceSidebars.left.activeItem === null
     : isTasksRoute || (isContentRoute && !searchMasterDetail));
   const isMobileTabRoot = mobileShowSidebarInline || (!isDesktop && isTasksRoute);
-  const browserChromeColor = !isDesktop && !isMobileTabRoot ? THEME_CHROME_WHITE : THEME_CHROME_YELLOW;
+  const browserChromeColor = THEME_CHROME_DARK;
   const mobileTabBarVisible = useMobileTabBarVisible();
 
   const renderWorkspaceSidebarContent = (side: "left" | "right") => {

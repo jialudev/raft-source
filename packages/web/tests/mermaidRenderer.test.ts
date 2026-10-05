@@ -15,7 +15,7 @@ test("unknown diagram types reject before Mermaid's serialized parse queue", asy
 
   try {
     const outcome = await Promise.race([
-      renderMermaidDiagram("not a diagram from the queue-boundary test", "light").then(
+      renderMermaidDiagram("not a diagram from the queue-boundary test", "dark").then(
         () => ({ kind: "resolved" as const }),
         (error: unknown) => ({ kind: "rejected" as const, error }),
       ),

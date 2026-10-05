@@ -74,6 +74,7 @@ export default function StatusDot({
   return (
     <span
       {...rest}
+      data-slot="status-dot"
       className={`inline-block shrink-0 rounded-full border border-black ${SIZE_CLASS[size]} ${colorClass} ${pulse ? "animate-pulse" : ""} ${className ?? ""}`}
     />
   );

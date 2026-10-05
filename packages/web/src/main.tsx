@@ -314,7 +314,7 @@ installGlobalClientErrorReporters();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RootErrorBoundary>
-      <ThemeProvider defaultTheme="brutal" defaultMode="light">
+      <ThemeProvider theme="elegant" mode="dark">
         <TooltipProvider>
           <ToastProvider>
             <ForwardToastProvider>

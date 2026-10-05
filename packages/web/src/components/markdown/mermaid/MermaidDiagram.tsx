@@ -72,10 +72,8 @@ function MermaidRenderError() {
 export function MermaidDiagram({ code }: { code: string }) {
   const { formatMessage } = useIntl();
   const rootRef = useRef<HTMLDivElement>(null);
-  // Raft's current web shell is light-only. The renderer cache already keys
-  // by theme, but wiring a dark mode here before the app exposes a real theme
-  // signal would invent state that no user can change.
-  const theme = "light" as const;
+  // Match the fixed dark Web shell, including the sandboxed SVG document.
+  const theme = "dark" as const;
   const renderKey = `${theme}\u0000${code}`;
   const renderCounterRef = useRef(0);
   const [settledState, setSettledState] = useState<MermaidRenderState>({

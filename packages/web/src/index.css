@@ -3,6 +3,7 @@
 @import "tailwindcss";
 @import "raft-ui/styles.css";
 @import "./components/markdown/mermaid/mermaid.css";
+@import "./dark.css";
 
 /* Responsive high-frequency actions use the width of their owning surface,
    not a viewport breakpoint. This keeps split panes and narrow desktop

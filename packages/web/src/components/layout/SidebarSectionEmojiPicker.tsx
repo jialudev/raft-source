@@ -91,6 +91,7 @@ export default function SidebarSectionEmojiPicker({
           )}
           {EmojiPicker ? (
             <EmojiPicker
+              theme={"dark" as PickerProps["theme"]}
               width="min(340px, calc(100vw - 48px))"
               height={360}
               lazyLoadEmojis

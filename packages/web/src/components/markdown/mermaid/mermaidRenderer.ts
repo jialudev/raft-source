@@ -1,6 +1,6 @@
 import { buildMermaidSrcDoc, parseSvgAspect } from "./mermaidFrame";
 
-export type MermaidRenderTheme = "light";
+export type MermaidRenderTheme = "dark";
 
 export interface MermaidRenderResult {
   svg: string;
@@ -34,16 +34,17 @@ function loadMermaid(): Promise<MermaidApi> {
           // rows, so strict mode never needs an HTML escape hatch.
           htmlLabels: false,
           // The SVG renders in an opaque srcDoc iframe, so app CSS variables
-          // cannot cross that document boundary. Literal light-theme colors
-          // are intentional until Raft exposes a real theme signal.
+          // cannot cross that document boundary. This Web fork is dark-only;
+          // render the SVG with matching colors, including downloaded diagrams.
           themeVariables: {
-            background: "#ffffff",
-            primaryColor: "#ffffff",
-            primaryTextColor: "#141111",
-            primaryBorderColor: "#141111",
-            lineColor: "#141111",
-            secondaryColor: "#f5f0e8",
-            tertiaryColor: "#ffffff",
+            darkMode: true,
+            background: "#191c23",
+            primaryColor: "#293241",
+            primaryTextColor: "#e6e9ef",
+            primaryBorderColor: "#66758b",
+            lineColor: "#abb7c9",
+            secondaryColor: "#353044",
+            tertiaryColor: "#232832",
           },
         });
         return mermaid;
