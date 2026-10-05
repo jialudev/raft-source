@@ -2722,7 +2722,7 @@ export default function MessageInput({
         {accessoryRow ? (
           <div className="flex flex-wrap items-center gap-1">{accessoryRow}</div>
         ) : null}
-        <div className="flex flex-col gap-2 border-2 border-black bg-white p-2 shadow-brutal-sm focus-within:shadow-brutal">
+        <div data-slot="message-composer" className="flex flex-col gap-2 border-2 border-black bg-white p-2 shadow-brutal-sm focus-within:shadow-brutal">
           <textarea
             id={textareaId}
             ref={composerTextareaRef}

@@ -126,6 +126,15 @@ input:not([type="checkbox"]):focus-visible, textarea:focus-visible {
   border-color: var(--night-accent);
   box-shadow: 0 0 0 2px rgb(207 184 120 / 18%);
 }
+/* The composer is one input card; focus its outer edge rather than drawing
+   a second accent-colored rectangle around the textarea inside it. */
+[data-slot="message-composer"]:focus-within {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-brutal-sm);
+}
+[data-slot="message-composer"] > textarea:focus-visible {
+  outline: none;
+}
 ::selection {
   background-color: #4b5368;
   color: #f1f3f7;
