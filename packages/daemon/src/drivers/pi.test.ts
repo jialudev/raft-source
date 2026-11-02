@@ -88,6 +88,32 @@ function makeDeterministicTracer() {
 
 const serverSockets = new WeakMap<Server, Set<Socket>>();
 
+test("Built-in provider connection preserves a gateway model name containing slashes", async () => {
+  const root = mkdtempSync(path.join(os.tmpdir(), "raft-gateway-connection-model-"));
+  try {
+    const session = await createPiAgentSessionForContext(
+      makeSpawnContext({
+        runtime: "builtin", model: "ali/ZHIPU/GLM-5.3-FlashX",
+        envVars: { OPENAI_API_KEY: "gateway-test-key" },
+        providerConnection: { providerId: "openai-compatible", endpointUrl: "https://gateway.example.test/v1", supportsImageInput: false },
+        runtimeConfig: {
+          version: RUNTIME_CONFIG_VERSION, runtime: "builtin",
+          provider: { kind: "connection", connectionId: "11111111-1111-4111-8111-111111111111" },
+          model: { kind: "custom", name: "ali/ZHIPU/GLM-5.3-FlashX" },
+          mode: { kind: "default" }, hostUserState: "forbidden",
+        },
+      }, { workingDirectory: root, slockHome: path.join(root, 'raft-home'), launchId: "gateway-connection-model" }),
+      "gateway-connection-model-session",
+      { agentDir: buildBuiltInAgentDir(root), sessionDir: buildBuiltInSessionDir(root), exposeLaunchEnvToTools: false, isolateHostProviderEnv: true },
+    );
+    try {
+      assert.equal(session.model?.provider, "openai");
+      assert.equal(session.model?.id, "ali/ZHIPU/GLM-5.3-FlashX");
+      assert.equal(session.model?.baseUrl, "https://gateway.example.test/v1");
+    } finally { session.dispose(); }
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
 async function listenOnLoopback(server: Server): Promise<number> {
   const sockets = new Set<Socket>();
   serverSockets.set(server, sockets);

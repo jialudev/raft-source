@@ -409,14 +409,16 @@ function resolvePiModelFromRegistry(
   modelId: string | null | undefined,
   modelRegistry: ModelRegistry,
   runtimeConfig: RuntimeConfig,
+  providerConnection: ProviderConnectionLaunchProjection | null = null,
 ) {
   if (!modelId || modelId === "default") return undefined;
+  const gateway = resolveBuiltInGatewayLaunch(runtimeConfig, providerConnection);
   if (
     runtimeConfig.runtime === "builtin"
-    && runtimeConfig.provider.kind === "gateway"
+    && gateway
     && runtimeConfig.model.kind === "custom"
   ) {
-    const provider = runtimeConfig.provider.providerId === "openai-compatible" ? "openai" : "anthropic";
+    const provider = gateway.providerId === "openai-compatible" ? "openai" : "anthropic";
     return modelRegistry.find(provider, runtimeConfig.model.name);
   }
   const [provider, ...modelParts] = modelId.split("/");
@@ -1229,7 +1231,7 @@ export async function createPiAgentSessionForContext(
       agent_dir_source: opts.agentDirSource ?? (spawnEnv.PI_CODING_AGENT_DIR ? "spawn_env" : "default"),
       ...launchTraceEvidenceAttrs,
     });
-    const model = resolvePiModelFromRegistry(launchRuntimeFields.model, modelRegistry, runtimeConfig);
+    const model = resolvePiModelFromRegistry(launchRuntimeFields.model, modelRegistry, runtimeConfig, managedProviderConnection);
     const resolvedModel = formatPiModelLogId(model);
     traceSpan?.addEvent(`${traceEventPrefix}.model_resolved`, {
       available_models_count: modelRegistry.getAvailable().length,
